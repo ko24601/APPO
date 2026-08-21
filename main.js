@@ -36,12 +36,8 @@ function createWindow () {
   // Load the React app
   mainWindow.loadFile(path.join(__dirname, 'dist', 'index.html'));
 
-  // Initialize auto-updater service safely
-  try {
-    initUpdateService(mainWindow);
-  } catch (e) {
-    console.warn('Failed to init update service:', e);
-  }
+  // Auto-updater service removed as requested
+  // initUpdateService(mainWindow);
 
   mainWindow.on('closed', () => {
     mainWindow = null;

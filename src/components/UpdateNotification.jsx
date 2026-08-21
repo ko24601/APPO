@@ -1,3 +1,4 @@
+// Auto-updater functionality removed as requested
 import React, { useState, useEffect } from 'react';
 import { DownloadCloud, CheckCircle, AlertCircle, RefreshCw, Sparkles, ArrowRight } from 'lucide-react';
 import './UpdateNotification.css';
@@ -20,63 +21,26 @@ const UpdateNotification = () => {
     return (now - lastModalToggle) > 300;
   };
 
+  // Auto-updater listeners removed as requested
   useEffect(() => {
-    // Check if running in Electron
-    if (window.electronAPI) {
-      if (window.electronAPI.appVersion) {
-        setAppVersion(window.electronAPI.appVersion);
-      }
-
-      // Initial status
-      window.electronAPI.getUpdateStatus().then(status => {
-        if (status) setUpdateState(status);
-      }).catch(err => console.log('Initial update status fetch:', err));
-
-      // Subscribe to updater events
-      const unsubscribe = window.electronAPI.onUpdateStatusChanged((status) => {
-        setUpdateState(status);
-        if (status.status === 'available' || status.status === 'downloaded') {
-          if (shouldShowModal()) {
-            setLastModalToggle(Date.now());
-            setShowModal(true);
-          }
-        }
+    // Get app version if available
+    if (window.electronAPI && window.electronAPI.getVersion) {
+      window.electronAPI.getVersion().then(version => {
+        if (version) setAppVersion(version);
+      }).catch(err => {
+        console.log('Could not get app version:', err);
+        setAppVersion('1.1.0'); // fallback
       });
-
-      return () => {
-        if (unsubscribe) unsubscribe();
-      };
     }
   }, []);
 
+  // Update checking functionality removed as requested
   const handleCheckForUpdates = () => {
-    if (window.electronAPI) {
-      setUpdateState(prev => ({ ...prev, status: 'checking', error: null }));
-      window.electronAPI.checkForUpdates();
-    } else {
-      // Web simulator test
-      setUpdateState({ status: 'checking', info: null, progress: null, error: null });
-      setTimeout(() => {
-        setUpdateState({
-          status: 'downloaded',
-          info: { version: '1.1.0', releaseNotes: 'Revamped Pit Wall UI, live data feeds, integrated multi-cam streams, and 5 red lights loading sequence.' },
-          progress: { percent: 100 }
-        });
-        if (shouldShowModal()) {
-          setLastModalToggle(Date.now());
-          setShowModal(true);
-        }
-      }, 1200);
-    }
+    alert('Update checking has been disabled in this build.');
   };
 
   const handleQuitAndInstall = () => {
-    if (window.electronAPI) {
-      window.electronAPI.quitAndInstall();
-    } else {
-      alert('In desktop Electron, this will restart the app and install the latest update automatically.');
-      setShowModal(false);
-    }
+    alert('Update installation has been disabled in this build.');
   };
 
   // Render Pill in Header

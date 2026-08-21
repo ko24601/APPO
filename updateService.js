@@ -10,13 +10,14 @@ autoUpdater.logger = log;
 autoUpdater.autoDownload = true;
 autoUpdater.autoInstallOnAppQuit = true;
 
-// Explicitly configure GitHub provider for electron-updater
-// This ensures we use the API endpoint instead of HTML page
+// Configure GitHub provider to use API endpoint instead of website
+// This avoids the 406 error when checking for updates
 autoUpdater.setFeedURL({
   provider: 'github',
   owner: 'ko24601',
   repo: 'APPO',
-  private: false
+  private: false,
+  host: 'api.github.com' // Force use of GitHub API endpoint
 });
 
 let mainWindowRef = null;

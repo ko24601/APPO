@@ -1,0 +1,176 @@
+/* Championship Standings Styles */
+
+.standings-card {
+  width: 100%;
+  background: rgba(14, 18, 25, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(16px);
+  display: flex;
+  flex-direction: column;
+}
+
+.standings-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 20px;
+  background: rgba(8, 11, 16, 0.85);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.standings-title-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.standings-title-left h2 {
+  margin: 0;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: #ffffff;
+}
+
+.standings-tab-switch {
+  display: flex;
+  background: rgba(0, 0, 0, 0.4);
+  padding: 3px;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.standings-tab-switch .tab-btn {
+  background: transparent;
+  border: none;
+  color: #8c9ba8;
+  padding: 4px 12px;
+  border-radius: 4px;
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.standings-tab-switch .tab-btn.active {
+  background: rgba(255, 215, 0, 0.2);
+  color: #ffd700;
+  border: 1px solid rgba(255, 215, 0, 0.4);
+}
+
+/* Table */
+.standings-table-container {
+  overflow-x: auto;
+}
+
+.standings-table {
+  width: 100%;
+}
+
+.st-head {
+  display: grid;
+  grid-template-columns: 50px 1.5fr 1.2fr 80px 80px 100px;
+  padding: 10px 16px;
+  background: rgba(0, 0, 0, 0.3);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  color: #8c9ba8;
+}
+
+.st-head.constructors {
+  grid-template-columns: 50px 2fr 100px 100px 120px;
+}
+
+.st-body {
+  display: flex;
+  flex-direction: column;
+}
+
+.st-row {
+  display: grid;
+  grid-template-columns: 50px 1.5fr 1.2fr 80px 80px 100px;
+  align-items: center;
+  padding: 10px 16px;
+  position: relative;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  transition: background 0.15s ease;
+}
+
+.st-row.constructors {
+  grid-template-columns: 50px 2fr 100px 100px 120px;
+}
+
+.st-row:hover {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.st-team-bar {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+}
+
+.st-col-pos {
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 800;
+  font-size: 0.95rem;
+  color: #ffffff;
+}
+
+.st-row.p1 .st-col-pos { color: #ffd700; }
+.st-row.p2 .st-col-pos { color: #e0e0e0; }
+.st-row.p3 .st-col-pos { color: #cd7f32; }
+
+.st-col-name {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.driver-bold-name, .team-bold-name {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: #ffffff;
+}
+
+.driver-code {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.72rem;
+  color: #8c9ba8;
+}
+
+.st-col-team {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8rem;
+  color: #8c9ba8;
+}
+
+.st-col-wins, .st-col-podiums {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.82rem;
+  color: #c9d1d9;
+}
+
+.st-col-pts {
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 800;
+  font-size: 0.95rem;
+  color: #ffd700;
+}
+
+.st-col-pts small {
+  font-size: 0.65rem;
+  color: #8c9ba8;
+}

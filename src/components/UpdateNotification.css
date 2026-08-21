@@ -1,0 +1,249 @@
+/* In-App Auto-Updater Notification Pill & Modal */
+
+.update-pill {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all 0.2s ease;
+  backdrop-filter: blur(8px);
+}
+
+.update-pill.idle {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.15);
+  color: #c9d1d9;
+}
+
+.update-pill.idle:hover {
+  background: rgba(0, 240, 255, 0.12);
+  border-color: #00f0ff;
+  color: #ffffff;
+}
+
+.update-pill.checking {
+  background: rgba(0, 240, 255, 0.15);
+  border-color: #00f0ff;
+  color: #00f0ff;
+}
+
+.update-pill.available, .update-pill.downloading {
+  background: rgba(255, 215, 0, 0.15);
+  border-color: #ffd700;
+  color: #ffd700;
+}
+
+.update-pill.downloaded {
+  background: linear-gradient(135deg, rgba(0, 255, 102, 0.2) 0%, rgba(0, 200, 80, 0.1) 100%);
+  border-color: #00ff66;
+  color: #00ff66;
+  animation: pulseGlow 1.5s infinite alternate;
+}
+
+.update-pill.error {
+  background: rgba(255, 50, 50, 0.15);
+  border-color: #ff3333;
+  color: #ff5555;
+}
+
+.spin-icon {
+  animation: spin 1s linear infinite;
+}
+
+.bounce-icon {
+  animation: bounce 1.2s infinite alternate;
+}
+
+@keyframes bounce {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-3px); }
+}
+
+/* Update Modal */
+.update-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+}
+
+.update-modal {
+  background: #11151e;
+  border: 1px solid rgba(0, 240, 255, 0.35);
+  border-radius: 12px;
+  width: 90%;
+  max-width: 520px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9);
+  overflow: hidden;
+  font-family: 'Inter', sans-serif;
+  color: #ffffff;
+}
+
+.update-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  background: rgba(0, 240, 255, 0.08);
+  border-bottom: 1px solid rgba(0, 240, 255, 0.15);
+}
+
+.update-modal-header .modal-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.update-modal-header h4 {
+  margin: 0;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.95rem;
+  color: #ffffff;
+  letter-spacing: 0.05em;
+}
+
+.update-modal-body {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.version-diff-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  background: rgba(255, 255, 255, 0.04);
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.ver-badge {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.85rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 4px;
+}
+
+.ver-badge.current {
+  background: rgba(255, 255, 255, 0.1);
+  color: #8c9ba8;
+}
+
+.ver-badge.new {
+  background: rgba(0, 240, 255, 0.15);
+  border: 1px solid #00f0ff;
+  color: #00f0ff;
+}
+
+/* Progress bar */
+.download-progress-section {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.progress-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  color: #8c9ba8;
+  font-family: 'Share Tech Mono', monospace;
+}
+
+.progress-track {
+  width: 100%;
+  height: 8px;
+  background: #090c12;
+  border-radius: 4px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #00f0ff, #00ff66);
+  transition: width 0.2s ease;
+  box-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
+}
+
+.update-ready-box {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: rgba(0, 255, 102, 0.08);
+  border: 1px solid rgba(0, 255, 102, 0.3);
+  padding: 12px 16px;
+  border-radius: 8px;
+}
+
+.update-ready-box h5 {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #00ff66;
+}
+
+.update-ready-box p {
+  margin: 4px 0 0 0;
+  font-size: 0.78rem;
+  color: #c9d1d9;
+}
+
+.update-info-text, .update-error-text {
+  font-size: 0.85rem;
+  margin: 0;
+}
+
+.update-error-text {
+  color: #ff5555;
+}
+
+.changelog-box {
+  background: #090c12;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  padding: 12px 16px;
+}
+
+.changelog-box h6 {
+  margin: 0 0 8px 0;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #ffd700;
+}
+
+.changelog-box ul {
+  margin: 0;
+  padding-left: 18px;
+  font-size: 0.78rem;
+  color: #8c9ba8;
+  line-height: 1.6;
+}
+
+.update-modal-footer {
+  padding: 16px 20px;
+  background: rgba(8, 11, 16, 0.9);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  justify-content: flex-end;
+}
+
+.restart-btn {
+  background: linear-gradient(135deg, #00c853 0%, #009624 100%) !important;
+  border-color: #00ff66 !important;
+  box-shadow: 0 0 16px rgba(0, 255, 102, 0.4) !important;
+}

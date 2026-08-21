@@ -1,74 +1,400 @@
-.driver-tracker {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
+/* Timing Tower Styling */
+
+.driver-tracker-card {
+  width: 100%;
+  background: rgba(14, 18, 25, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
   overflow: hidden;
-}
-
-.driver-tracker h2 {
-  font-family: var(--font-disp);
-  font-size: 1.5rem;
-  font-weight: 700;
-  letter-spacing: 0.02em;
-  margin: 0;
-  padding: 1rem;
-  border-bottom: 1px solid var(--border);
-  color: var(--text);
-  text-align: center;
-}
-
-.drivers-table {
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(16px);
   display: flex;
   flex-direction: column;
 }
 
-.table-header, .table-body {
-  display: grid;
-  grid-template-columns: 60px 1fr 1fr 80px 100px 60px;
-  gap: 8px;
-  padding: 1rem;
-}
-
-.table-header {
-  font-weight: 600;
-  font-size: 0.875rem;
-  color: var(--muted);
-  text-transform: uppercase;
-  letter-spacing: 0.07em;
-  background: rgba(230,57,70,0.1);
-  border-bottom: 1px solid var(--border);
-}
-
-.table-row {
+.tracker-card-header {
+  display: flex;
+  justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid var(--border);
-  transition: background var(--trans);
+  padding: 14px 20px;
+  background: rgba(8, 11, 16, 0.85);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-.table-row:hover {
-  background: rgba(255,255,255,0.03);
+.header-left-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
-.table-row .driver {
+.header-left-title h2 {
+  margin: 0;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: #ffffff;
+}
+
+.tower-meta-badges {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.fastest-lap-legend {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.72rem;
+  color: #c77dff;
+  background: rgba(199, 125, 255, 0.12);
+  border: 1px solid rgba(199, 125, 255, 0.3);
+  padding: 3px 8px;
+  border-radius: 4px;
+}
+
+.live-tag {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.72rem;
+  color: #00ff66;
+}
+
+.live-tag .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #00ff66;
+  box-shadow: 0 0 6px #00ff66;
+  animation: pulse 1.5s infinite;
+}
+
+/* Table */
+.timing-table-wrapper {
+  overflow-x: auto;
+}
+
+.timing-table-header {
+  display: grid;
+  grid-template-columns: 48px 180px 130px 68px 84px 84px 170px 60px 60px;
+  align-items: center;
+  padding: 10px 16px;
+  background: rgba(0, 0, 0, 0.4);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  color: #8c9ba8;
+}
+
+.timing-table-body {
+  display: flex;
+  flex-direction: column;
+}
+
+.driver-row {
+  display: grid;
+  grid-template-columns: 48px 180px 130px 68px 84px 84px 170px 60px 60px;
+  align-items: center;
+  padding: 10px 16px;
+  position: relative;
+  cursor: pointer;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  transition: all 0.15s ease;
+  background: transparent;
+}
+
+.driver-row:hover {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.driver-row.expanded {
+  background: rgba(0, 240, 255, 0.05);
+  border-bottom-color: rgba(0, 240, 255, 0.2);
+}
+
+.team-color-strip {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+}
+
+/* Columns */
+.col-pos .pos-badge {
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 800;
+  font-size: 0.95rem;
+  color: #ffffff;
+}
+
+.driver-row.podium-p1 .col-pos .pos-badge { color: #ffd700; }
+.driver-row.podium-p2 .col-pos .pos-badge { color: #e0e0e0; }
+.driver-row.podium-p3 .col-pos .pos-badge { color: #cd7f32; }
+
+.col-driver {
   display: flex;
   align-items: center;
   gap: 8px;
 }
 
-.driver-name {
-  font-weight: 600;
+.driver-number-box {
+  width: 22px;
+  height: 22px;
+  border-radius: 4px;
+  border: 1px solid;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Share Tech Mono', monospace;
+  font-weight: 700;
+  font-size: 0.72rem;
+  background: rgba(0, 0, 0, 0.4);
+  color: #ffffff;
 }
 
-.pos, .team, .laps, .time, .points {
-  font-variant-numeric: tabular-nums;
+.driver-name-group {
+  display: flex;
+  flex-direction: column;
 }
 
-.time {
-  font-family: var(--font-disp);
-  font-weight: 500;
+.driver-acronym {
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: #ffffff;
+  letter-spacing: 0.05em;
 }
 
-.points {
-  font-weight: 600;
-  color: var(--accent2);
+.driver-full-name {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.72rem;
+  color: #8c9ba8;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.fastest-lap-badge {
+  color: #c77dff;
+  font-size: 0.85rem;
+  filter: drop-shadow(0 0 6px #c77dff);
+}
+
+.team-name-text {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8rem;
+  color: #c9d1d9;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Tire */
+.tire-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  border: 1px solid;
+  font-family: 'Share Tech Mono', monospace;
+  font-weight: 800;
+  font-size: 0.7rem;
+}
+
+.tire-letter {
+  font-weight: 900;
+}
+
+.tire-age {
+  font-size: 0.65rem;
+  opacity: 0.85;
+}
+
+.gap-text, .interval-text {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.8rem;
+  color: #ffffff;
+}
+
+/* Micro-Sectors */
+.micro-sector-box {
+  display: flex;
+  gap: 4px;
+}
+
+.sector-pill {
+  padding: 2px 5px;
+  border-radius: 3px;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.sector-pill.purple {
+  background: rgba(199, 125, 255, 0.25);
+  border: 1px solid #c77dff;
+  color: #c77dff;
+  box-shadow: 0 0 6px rgba(199, 125, 255, 0.4);
+}
+
+.sector-pill.green {
+  background: rgba(0, 255, 102, 0.2);
+  border: 1px solid #00ff66;
+  color: #00ff66;
+}
+
+.sector-pill.yellow {
+  background: rgba(255, 215, 0, 0.15);
+  border: 1px solid #ffd700;
+  color: #ffd700;
+}
+
+/* DRS */
+.drs-pill {
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+}
+
+.drs-pill.active {
+  background: #00ff66;
+  color: #000000;
+  box-shadow: 0 0 8px #00ff66;
+}
+
+.drs-pill.inactive {
+  color: #4a5568;
+}
+
+/* Pit & Indicator */
+.col-pits {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.pit-badge {
+  font-family: 'Share Tech Mono', monospace;
+  font-weight: 700;
+  font-size: 0.8rem;
+  color: #c9d1d9;
+}
+
+.expand-indicator {
+  color: #8c9ba8;
+}
+
+/* Telemetry Drawer */
+.driver-telemetry-drawer {
+  background: #090c12;
+  border-bottom: 1px solid rgba(0, 240, 255, 0.2);
+  padding: 14px 20px;
+  animation: slideDown 0.2s ease-out;
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.drawer-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+}
+
+.telemetry-box {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  padding: 10px 14px;
+}
+
+.telemetry-box .t-label {
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700;
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  color: #8c9ba8;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 4px;
+}
+
+.telemetry-box .t-val {
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 800;
+  font-size: 1.1rem;
+  color: #ffffff;
+}
+
+.telemetry-box .t-val small {
+  font-size: 0.65rem;
+  color: #e10600;
+}
+
+.gear-indicator {
+  margin-top: 4px;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.75rem;
+  color: #00f0ff;
+}
+
+.gear-indicator strong {
+  font-size: 0.95rem;
+  color: #ffffff;
+}
+
+.rpm-bar-mini {
+  width: 100%;
+  height: 6px;
+  background: #11151e;
+  border-radius: 3px;
+  overflow: hidden;
+  margin-top: 6px;
+}
+
+.rpm-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #00f0ff, #ffd700, #e10600);
+  transition: width 0.15s ease;
+}
+
+.pedal-bar-track {
+  width: 100%;
+  height: 6px;
+  background: #11151e;
+  border-radius: 3px;
+  overflow: hidden;
+  margin: 6px 0 4px 0;
+}
+
+.pedal-fill.throttle {
+  height: 100%;
+  background: #00ff66;
+  box-shadow: 0 0 6px #00ff66;
+  transition: width 0.15s ease;
+}
+
+.pedal-fill.brake {
+  height: 100%;
+  background: #e10600;
+  box-shadow: 0 0 6px #ff0000;
+  transition: width 0.15s ease;
+}
+
+.pedal-val {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #ffffff;
 }

@@ -1,18 +1,31 @@
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, Menu } = require('electron');
 const path = require('node:path');
-const url = require('node:url');
+
+let mainWindow = null;
 
 function createWindow () {
-  const win = new BrowserWindow({
-    width: 1200,
-    height: 800,
+  mainWindow = new BrowserWindow({
+    width: 1380,
+    height: 900,
+    minWidth: 1080,
+    minHeight: 700,
+    backgroundColor: '#08090C',
+    title: 'F1 Pit Wall Command Center [DEV]',
     webPreferences: {
-      preload: path.join(__dirname, 'preload.js')
+      preload: path.join(__dirname, 'preload.js'),
+      nodeIntegration: false,
+      contextIsolation: true,
+      sandbox: false,
+      webSecurity: true
     }
   });
 
-  // Load the Vite dev server
-  win.loadURL('http://localhost:5173');
+  Menu.setApplicationMenu(null);
+  mainWindow.loadURL('http://localhost:5173');
+
+  mainWindow.on('closed', () => {
+    mainWindow = null;
+  });
 }
 
 app.whenReady().then(() => {

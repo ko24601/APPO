@@ -1,42 +1,172 @@
-.track-data-widget {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
+/* Interactive Track Data Widget Styles */
+
+.track-data-card {
+  width: 100%;
+  background: rgba(14, 18, 25, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
   overflow: hidden;
-}
-
-.track-data-widget h2 {
-  font-family: var(--font-disp);
-  font-size: 1.5rem;
-  font-weight: 700;
-  letter-spacing: 0.02em;
-  margin: 0;
-  padding: 1rem;
-  border-bottom: 1px solid var(--border);
-  color: var(--text);
-}
-
-.track-info {
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(16px);
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
-  padding: 1rem;
 }
 
-.info-item {
+.track-card-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 14px 20px;
+  background: rgba(8, 11, 16, 0.85);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-.label {
-  font-size: 0.875rem;
-  color: var(--muted);
+.track-title-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
-.value {
-  font-size: 0.875rem;
-  font-weight: 500;
-  color: var(--text);
-  text-align: right;
+.track-title-left h2 {
+  margin: 0;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: #ffffff;
+}
+
+.track-meta-chip {
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: #00f0ff;
+  background: rgba(0, 240, 255, 0.1);
+  border: 1px solid rgba(0, 240, 255, 0.3);
+  padding: 3px 10px;
+  border-radius: 4px;
+}
+
+/* Map SVG Viewport */
+.track-map-container {
+  position: relative;
+  width: 100%;
+  background: #090c12;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 0;
+}
+
+.circuit-svg {
+  width: 100%;
+  max-height: 380px;
+  filter: drop-shadow(0 0 20px rgba(0, 240, 255, 0.15));
+}
+
+.car-marker-group {
+  transition: transform 0.1s linear;
+}
+
+.car-dot-pulse {
+  filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.8));
+}
+
+.car-acronym-label {
+  filter: drop-shadow(0 2px 4px #000000);
+}
+
+.track-map-legend {
+  position: absolute;
+  bottom: 14px;
+  right: 18px;
+  display: flex;
+  gap: 12px;
+  background: rgba(8, 11, 16, 0.8);
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.68rem;
+  color: #8c9ba8;
+}
+
+.legend-box {
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+}
+
+.legend-box.racing-line { background: #00f0ff; box-shadow: 0 0 6px #00f0ff; }
+.legend-box.drs-zone { background: #00ff66; box-shadow: 0 0 6px #00ff66; }
+.legend-box.leader-car { background: #e10600; border-radius: 50%; box-shadow: 0 0 6px #ff0000; }
+
+/* Stats Grid */
+.circuit-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  padding: 16px 20px;
+}
+
+.stat-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 8px;
+  padding: 10px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.stat-card.span-2 {
+  grid-column: span 2;
+  background: rgba(0, 240, 255, 0.04);
+  border-color: rgba(0, 240, 255, 0.2);
+}
+
+.stat-label {
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700;
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  color: #8c9ba8;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.stat-value {
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 800;
+  font-size: 1.15rem;
+  color: #ffffff;
+}
+
+.stat-value small {
+  font-size: 0.65rem;
+  color: #00f0ff;
+}
+
+.stat-value.highlight {
+  color: #00f0ff;
+}
+
+.stat-sub {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.75rem;
+  color: #8c9ba8;
+}
+
+@media (max-width: 900px) {
+  .circuit-stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }

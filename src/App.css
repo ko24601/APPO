@@ -1,249 +1,234 @@
+/* F1 Pit Wall Command Center - Core Design System & Tokens */
+
 :root {
-  --f1-red: #EF1D24;
-  --f1-white: #FFFFFF;
-  --f1-black: #000000;
-  --f1-dark: #0A0A0A;
-  --f1-gray: #1A1A1A;
-  --f1-light-gray: #2A2A2A;
+  --f1-red: #e10600;
+  --f1-red-glow: rgba(225, 6, 0, 0.4);
+  --f1-cyan: #00f0ff;
+  --f1-cyan-glow: rgba(0, 240, 255, 0.4);
+  --f1-gold: #ffd700;
+  --f1-green: #00ff66;
+  --f1-purple: #c77dff;
+  --f1-bg-darkest: #040508;
+  --f1-bg-dark: #08090c;
+  --f1-bg-card: rgba(14, 18, 25, 0.9);
+  --f1-border: rgba(255, 255, 255, 0.1);
+  --f1-border-glow: rgba(0, 240, 255, 0.25);
+  --f1-text-main: #ffffff;
+  --f1-text-muted: #8c9ba8;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--f1-bg-darkest);
+  color: var(--f1-text-main);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  overflow-x: hidden;
+  user-select: none;
 }
 
 .app {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
-  background: linear-gradient(180deg, var(--f1-black) 0%, var(--f1-dark) 100%);
-  color: var(--f1-white);
-  font-family: 'Inter', sans-serif;
+  height: 100vh;
+  width: 100vw;
+  background: radial-gradient(circle at 50% 20%, #0d121c 0%, #07090d 70%, #030406 100%);
+  color: var(--f1-text-main);
   position: relative;
   overflow: hidden;
 }
 
-/* Animated background pattern */
+/* Background Carbon Pattern */
 .app::before {
   content: '';
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  inset: 0;
   background-image:
-    radial-gradient(circle at 25% 25%, rgba(239, 29, 36, 0.1) 1px, transparent 1px),
-    radial-gradient(circle at 75% 75%, rgba(239, 29, 36, 0.1) 1px, transparent 1px);
-  background-size: 40px 40px;
-  opacity: 0.3;
+    linear-gradient(45deg, rgba(255, 255, 255, 0.015) 25%, transparent 25%),
+    linear-gradient(-45deg, rgba(255, 255, 255, 0.015) 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, rgba(255, 255, 255, 0.015) 75%),
+    linear-gradient(-45deg, transparent 75%, rgba(255, 255, 255, 0.015) 75%);
+  background-size: 16px 16px;
+  opacity: 0.8;
   pointer-events: none;
   z-index: 0;
 }
 
-.app-header {
-  background: rgba(10, 10, 10, 0.92);
-  backdrop-filter: blur(24px);
-  border-bottom: 1px solid rgba(239, 29, 36, 0.2);
-  padding: 1.5rem 2rem;
-  text-align: center;
-  position: relative;
-  z-index: 1;
-}
-
-.app-header h1 {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 2.2rem;
-  font-weight: 800;
-  letter-spacing: 0.04em;
-  margin: 0;
-  color: var(--f1-white);
-  text-shadow: 0 0 10px rgba(239, 29, 36, 0.5);
-}
-
-.header-info {
-  display: flex;
-  justify-content: center;
-  gap: 1.5rem;
-  margin-top: 0.75rem;
-  font-size: 0.9rem;
-  color: var(--f1-gray);
-}
-
-.header-info span {
-  display: flex;
-  align-items: center;
-  gap: 0.3rem;
-}
-
+/* Main Dashboard Viewport */
 .dashboard-content {
-  display: flex;
   flex: 1;
-  overflow: hidden;
-  padding: 2rem;
-  gap: 2rem;
+  padding: 16px 20px;
+  overflow-y: auto;
   position: relative;
   z-index: 1;
-}
-
-.left-panel {
-  flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
 }
 
-.right-panel {
-  flex: 0.5;
+.dashboard-content::-webkit-scrollbar {
+  width: 6px;
+}
+.dashboard-content::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 3px;
 }
 
-@media (max-width: 768px) {
-  .dashboard-content {
-    flex-direction: column;
-  }
-
-  .right-panel {
-    flex: 1;
-  }
-}
-
-/* F1 Card styles */
-.f1-card {
-  background: rgba(26, 26, 26, 0.8);
-  border: 1px solid var(--f1-red);
-  border-radius: 12px;
-  overflow: hidden;
-  backdrop-filter: blur(12px);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.f1-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 24px rgba(239, 29, 36, 0.3);
-}
-
-.f1-card h2 {
-  background: linear-gradient(90deg, var(--f1-red), rgba(239, 29, 36, 0.7));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 1.6rem;
-  font-weight: 700;
-  letter-spacing: 0.02em;
-  margin: 0;
-  padding: 1.2rem;
-  border-bottom: 1px solid rgba(239, 29, 36, 0.2);
-  text-align: center;
-}
-
-/* Driver Tracker specific */
-.driver-table {
+.tab-view {
+  display: flex;
   width: 100%;
-  border-collapse: collapse;
+  animation: fadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.driver-table th,
-.driver-table td {
-  padding: 0.9rem 1rem;
-  text-align: left;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-.driver-table th {
-  background: rgba(239, 29, 36, 0.1);
-  font-weight: 600;
-  font-size: 0.85rem;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: var(--f1-gray);
+/* VIEW 1: TIMING LAYOUT GRID */
+.timing-layout-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: 16px;
+  align-items: start;
 }
 
-.driver-table tr {
-  transition: background 0.2s ease;
+.layout-col-left {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
-.driver-table tr:hover {
-  background: rgba(239, 29, 36, 0.08);
+.layout-col-right {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
-.driver-table tr:last-child td {
-  border-bottom: none;
+.right-widgets-row {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
-.driver-position {
-  font-weight: 700;
-  color: var(--f1-red);
-  min-width: 30px;
+/* VIEW 2: STREAM MULTI-CAM LAYOUT */
+.stream-layout-grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 16px;
 }
 
-.driver-name {
-  font-weight: 600;
+.stream-main-col {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.stream-side-col {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* VIEW 3: TRACK LAYOUT */
+.track-layout-grid {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 16px;
+}
+
+.track-left-col, .track-right-col {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* VIEW 4: TELEMETRY LAYOUT */
+.telemetry-layout-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 16px;
+}
+
+.tel-left-col, .tel-right-col {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* VIEW 5: RACE CONTROL LAYOUT */
+.racecontrol-layout-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 16px;
+}
+
+.rc-left-col, .rc-right-col {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* FULL WIDTH VIEWS */
+.full-width-view {
+  width: 100%;
+}
+
+/* Footer Ticker */
+.app-footer-ticker {
+  height: 32px;
+  background: rgba(6, 8, 12, 0.95);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
   display: flex;
   align-items: center;
-  gap: 0.6rem;
+  padding: 0 16px;
+  overflow: hidden;
+  position: relative;
+  z-index: 10;
+  flex-shrink: 0;
 }
 
-.driver-team {
-  font-size: 0.85rem;
-  color: var(--f1-gray);
-}
-
-.driver-laps,
-.driver-time,
-.driver-points {
-  font-variant-numeric: tabular-nums;
-}
-
-.driver-points {
-  font-weight: 600;
+.footer-ticker-label {
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 800;
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
   color: var(--f1-red);
+  background: rgba(225, 6, 0, 0.15);
+  border: 1px solid var(--f1-red);
+  padding: 2px 8px;
+  border-radius: 3px;
+  margin-right: 16px;
+  white-space: nowrap;
 }
 
-.driver-time.increment {
-  color: #4CAF50;
-}
-
-.driver-time.decrement {
-  color: #f44336;
-}
-
-/* Weather Widget */
-.weather-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1rem;
-  padding: 1.2rem;
-}
-
-.weather-item {
+.footer-ticker-content {
   display: flex;
-  flex-direction: column;
+  gap: 28px;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.72rem;
+  color: var(--f1-text-muted);
+  white-space: nowrap;
+  animation: tickerScroll 30s linear infinite;
 }
 
-.weather-label {
-  font-size: 0.8rem;
-  color: var(--f1-gray);
-  text-transform: uppercase;
-  letter-spacing: 0.03em;
+@keyframes tickerScroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
 }
 
-.weather-value {
-  font-size: 1.1rem;
-  font-weight: 500;
-  margin-top: 0.2rem;
-  font-variant-numeric: tabular-nums;
-}
-
-/* Track Data Widget */
-.track-info {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 0.8rem;
-  padding: 1.2rem;
-}
-
-.track-label {
-  font-size: 0.8rem;
-  color: var(--f1-gray);
-}
-
-.track-value {
-  font-size: 0.95rem;
-  font-weight: 500;
-  text-align: right;
+/* Responsive adjustments */
+@media (max-width: 1180px) {
+  .timing-layout-grid,
+  .stream-layout-grid,
+  .track-layout-grid,
+  .telemetry-layout-grid,
+  .racecontrol-layout-grid {
+    grid-template-columns: 1fr;
+  }
 }

@@ -1,0 +1,240 @@
+/* Telemetry Comparator Styles */
+
+.telemetry-card {
+  width: 100%;
+  background: rgba(14, 18, 25, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(16px);
+  display: flex;
+  flex-direction: column;
+}
+
+.telemetry-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 20px;
+  background: rgba(8, 11, 16, 0.85);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.tel-title-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.tel-title-left h2 {
+  margin: 0;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: #ffffff;
+}
+
+/* Comparator Selectors */
+.comparator-selectors {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 20px;
+  background: rgba(0, 0, 0, 0.3);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.driver-select-box {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid;
+  border-radius: 8px;
+  padding: 10px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.select-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.car-num {
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 800;
+  font-size: 0.8rem;
+  color: #ffffff;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.d-select {
+  flex: 1;
+  background: #090c12;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 4px;
+  color: #ffffff;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 6px 10px;
+  outline: none;
+  cursor: pointer;
+}
+
+.d-select option {
+  background: #11151e;
+}
+
+.driver-sub-badge {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.72rem;
+  color: #8c9ba8;
+}
+
+.vs-badge {
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 900;
+  font-size: 1rem;
+  color: #e10600;
+  background: rgba(225, 6, 0, 0.15);
+  border: 1px solid #e10600;
+  padding: 6px 12px;
+  border-radius: 6px;
+}
+
+/* Meters Grid */
+.telemetry-meters-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 20px;
+}
+
+.meter-row {
+  display: grid;
+  grid-template-columns: 120px 1fr 120px;
+  align-items: center;
+  gap: 14px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  border-radius: 8px;
+  padding: 12px 16px;
+}
+
+.meter-val {
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 800;
+  font-size: 1.15rem;
+}
+
+.meter-val.left { text-align: left; }
+.meter-val.right { text-align: right; }
+
+.meter-val small {
+  font-size: 0.65rem;
+  color: #8c9ba8;
+}
+
+.meter-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.meter-title {
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700;
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  color: #8c9ba8;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.dual-bar-track {
+  width: 100%;
+  height: 8px;
+  background: #090c12;
+  border-radius: 4px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+.dual-fill {
+  height: 100%;
+  transition: width 0.2s ease;
+}
+
+.dual-fill.left {
+  margin-right: auto;
+  border-radius: 4px 0 0 4px;
+}
+
+.dual-fill.right {
+  margin-left: auto;
+  border-radius: 0 4px 4px 0;
+}
+
+.dual-fill.throttle {
+  background: #00ff66;
+  box-shadow: 0 0 6px #00ff66;
+}
+
+.dual-fill.brake {
+  background: #ff3333;
+  box-shadow: 0 0 6px #ff3333;
+}
+
+/* Extra row */
+.extra-telemetry-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 8px;
+  padding: 12px 20px;
+}
+
+.extra-box {
+  display: flex;
+  gap: 20px;
+}
+
+.extra-item {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.8rem;
+  color: #8c9ba8;
+}
+
+.extra-item strong {
+  color: #ffffff;
+  font-size: 0.95rem;
+}
+
+.drs-on {
+  color: #00ff66;
+  font-weight: 700;
+}
+
+.drs-off {
+  color: #64748b;
+}
+
+.extra-center-tag {
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700;
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  color: #00f0ff;
+}

@@ -1,47 +1,263 @@
-.weather-widget {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
+/* Pit Wall Meteorology Styling */
+
+.weather-card {
+  width: 100%;
+  background: rgba(14, 18, 25, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
   overflow: hidden;
-}
-
-.weather-widget h2 {
-  font-family: var(--font-disp);
-  font-size: 1.5rem;
-  font-weight: 700;
-  letter-spacing: 0.02em;
-  margin: 0;
-  padding: 1rem;
-  border-bottom: 1px solid var(--border);
-  color: var(--text);
-}
-
-.weather-info {
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(16px);
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
-  padding: 1rem;
 }
 
-.weather-item {
+.weather-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 20px;
+  background: rgba(8, 11, 16, 0.85);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.weather-title-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.weather-title-left h2 {
+  margin: 0;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: #ffffff;
+}
+
+.weather-status-chip {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 4px;
+}
+
+.weather-status-chip.dry {
+  background: rgba(255, 215, 0, 0.12);
+  border: 1px solid #ffd700;
+  color: #ffd700;
+}
+
+.weather-status-chip.wet {
+  background: rgba(0, 240, 255, 0.15);
+  border: 1px solid #00f0ff;
+  color: #00f0ff;
+}
+
+/* Weather Main Grid */
+.weather-main-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  padding: 16px 20px;
+}
+
+.weather-box {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 8px;
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+}
+
+.w-label {
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700;
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  color: #8c9ba8;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* Temps */
+.temps-box {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.temp-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.temp-val {
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 800;
+  font-size: 1.4rem;
+  margin: 4px 0 2px 0;
+}
+
+.temp-val.track { color: #ff6b4a; text-shadow: 0 0 10px rgba(255, 107, 74, 0.4); }
+.temp-val.air { color: #00f0ff; }
+
+.temp-val small {
+  font-size: 0.75rem;
+}
+
+.temp-sub {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.65rem;
+  color: #8c9ba8;
+}
+
+.temp-divider {
+  width: 1px;
+  height: 48px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Wind Box & Compass */
+.wind-box {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.wind-val {
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 800;
+  font-size: 1.25rem;
+  color: #ffffff;
+  margin: 4px 0 2px 0;
+}
+
+.wind-val small {
+  font-size: 0.65rem;
+  color: #00f0ff;
+}
+
+.wind-sub {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.72rem;
+  color: #8c9ba8;
+}
+
+.compass-visual {
+  width: 44px;
+  height: 44px;
+}
+
+.compass-dial {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 240, 255, 0.4);
+  background: #090c12;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 10px rgba(0, 240, 255, 0.15);
+}
+
+.comp-n {
+  position: absolute;
+  top: 2px;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 7px;
+  font-weight: 800;
+  color: #e10600;
+}
+
+.compass-needle {
+  width: 3px;
+  height: 24px;
+  background: linear-gradient(to top, transparent 50%, #00f0ff 50%);
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Atmosphere */
+.atmo-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.label {
-  font-size: 0.875rem;
-  color: var(--muted);
+.atmo-val {
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: #ffffff;
 }
 
-.value {
-  font-size: 0.875rem;
-  font-weight: 500;
-  color: var(--text);
-  text-align: right;
+.atmo-val small {
+  font-size: 0.65rem;
+  color: #8c9ba8;
 }
 
-/* Optional: Add some color coding for weather conditions */
-.value.condition {
-  text-transform: capitalize;
+.humidity-bar-track {
+  width: 100%;
+  height: 5px;
+  background: #11151e;
+  border-radius: 3px;
+  overflow: hidden;
+  margin: 6px 0;
+}
+
+.humidity-bar-fill {
+  height: 100%;
+  background: #00f0ff;
+  box-shadow: 0 0 6px #00f0ff;
+}
+
+.mt-2 {
+  margin-top: 8px;
+}
+
+/* Advisory */
+.advisory-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.risk-badge {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #00ff66;
+}
+
+.rec-tire-badge {
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: #ffffff;
+  margin-bottom: 4px;
+}
+
+.strategy-note {
+  margin: 0;
+  font-size: 0.72rem;
+  color: #8c9ba8;
+  line-height: 1.4;
+}
+
+@media (max-width: 900px) {
+  .weather-main-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }

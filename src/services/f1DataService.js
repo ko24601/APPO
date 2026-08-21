@@ -1,6 +1,6 @@
 // F1 Live Data Service - OpenF1 API Integration & Authentic Data Models
-
-const OPENF1_BASE = 'https://api.openf1.org/v1';
+// API base URL can be overridden via OPENF1_BASE environment variable
+const OPENF1_BASE = process.env.OPENF1_BASE || 'https://api.openf1.org/v1';
 
 // Full 20-Driver FIA Formula 1 Grid
 export const FALLBACK_DRIVERS = [

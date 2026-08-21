@@ -159,10 +159,29 @@
   white-space: nowrap;
 }
 
-.rc-category-badge.green { background: rgba(0, 255, 102, 0.2); color: #00ff66; border: 1px solid #00ff66; }
-.rc-category-badge.yellow { background: rgba(255, 215, 0, 0.2); color: #ffd700; border: 1px solid #ffd700; }
-.rc-category-badge.stewards { background: rgba(255, 100, 100, 0.2); color: #ff5555; border: 1px solid #ff5555; }
-.rc-category-badge.drs_enabled { background: rgba(0, 240, 255, 0.2); color: #00f0ff; border: 1px solid #00f0ff; }
+.rc-category-badge.green {
+  background: rgba(0, 255, 102, 0.2);
+  color: #00ff66;
+  border: 1px solid #00ff66;
+}
+
+.rc-category-badge.yellow {
+  background: rgba(255, 215, 0, 0.2);
+  color: #ffd700;
+  border: 1px solid #ffd700;
+}
+
+.rc-category-badge.stewards {
+  background: rgba(255, 100, 100, 0.2);
+  color: #ff5555;
+  border: 1px solid #ff5555;
+}
+
+.rc-category-badge.drs_enabled {
+  background: rgba(0, 240, 255, 0.2);
+  color: #00f0ff;
+  border: 1px solid #00f0ff;
+}
 
 .rc-msg-content {
   font-family: 'Inter', sans-serif;

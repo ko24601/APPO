@@ -10,6 +10,15 @@ autoUpdater.logger = log;
 autoUpdater.autoDownload = true;
 autoUpdater.autoInstallOnAppQuit = true;
 
+// Explicitly configure GitHub provider for electron-updater
+// This ensures we use the API endpoint instead of HTML page
+autoUpdater.setFeedURL({
+  provider: 'github',
+  owner: 'ko24601',
+  repo: 'APPO',
+  private: false
+});
+
 let mainWindowRef = null;
 let updateStatus = {
   status: 'idle', // 'idle' | 'checking' | 'available' | 'not-available' | 'downloading' | 'downloaded' | 'error'
@@ -17,6 +26,9 @@ let updateStatus = {
   progress: null,
   error: null
 };
+
+let retryCount = 0;
+const MAX_RETRIES = 3;
 
 function sendStatusToWindow(status, data = {}) {
   updateStatus = { ...updateStatus, status, ...data };
@@ -61,11 +73,14 @@ function initUpdateService(mainWindow) {
   });
 
   autoUpdater.on('error', (err) => {
+    // Log detailed error for debugging
+    log.error('Update check failed:', err);
+
     // Safe friendly error capture without throwing unhandled exceptions
     const friendlyMsg = err?.message?.includes('404')
       ? 'No published update package found on GitHub Releases yet.'
       : (err ? err.message : 'Update check encountered a network error.');
-    
+
     sendStatusToWindow('error', { error: friendlyMsg });
   });
 
@@ -73,14 +88,27 @@ function initUpdateService(mainWindow) {
   ipcMain.handle('check-for-updates', async () => {
     try {
       sendStatusToWindow('checking');
+      retryCount = 0; // Reset on attempt
       const result = await autoUpdater.checkForUpdates();
       return { success: true, result };
     } catch (err) {
-      const friendlyMsg = err?.message?.includes('404')
-        ? 'No published update package found on GitHub Releases yet.'
-        : (err ? err.message : 'Updater error');
-      sendStatusToWindow('error', { error: friendlyMsg });
-      return { success: false, error: friendlyMsg };
+      // Only show user error after max retries
+      if (retryCount >= MAX_RETRIES) {
+        const friendlyMsg = err?.message?.includes('404')
+          ? 'No published update package found on GitHub Releases yet.'
+          : (err ? err.message : 'Updater error');
+        sendStatusToWindow('error', { error: friendlyMsg });
+        return { success: false, error: friendlyMsg };
+      }
+
+      // Otherwise, retry briefly
+      retryCount++;
+      setTimeout(() => {
+        // Trigger another check after short delay
+        autoUpdater.checkForUpdates().catch(() => {});
+      }, 2000);
+
+      return { success: false, retrying: true };
     }
   });
 

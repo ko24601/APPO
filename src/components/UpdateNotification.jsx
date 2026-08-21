@@ -11,6 +11,14 @@ const UpdateNotification = () => {
   });
   const [showModal, setShowModal] = useState(false);
   const [appVersion, setAppVersion] = useState('1.1.0');
+  const [lastModalToggle, setLastModalToggle] = useState(0);
+
+  // Prevent rapid modal reopening
+  const shouldShowModal = () => {
+    const now = Date.now();
+    // Prevent modal from reopening too quickly (300ms debounce)
+    return (now - lastModalToggle) > 300;
+  };
 
   useEffect(() => {
     // Check if running in Electron
@@ -28,7 +36,10 @@ const UpdateNotification = () => {
       const unsubscribe = window.electronAPI.onUpdateStatusChanged((status) => {
         setUpdateState(status);
         if (status.status === 'available' || status.status === 'downloaded') {
-          setShowModal(true);
+          if (shouldShowModal()) {
+            setLastModalToggle(Date.now());
+            setShowModal(true);
+          }
         }
       });
 
@@ -51,7 +62,10 @@ const UpdateNotification = () => {
           info: { version: '1.1.0', releaseNotes: 'Revamped Pit Wall UI, live data feeds, integrated multi-cam streams, and 5 red lights loading sequence.' },
           progress: { percent: 100 }
         });
-        setShowModal(true);
+        if (shouldShowModal()) {
+          setLastModalToggle(Date.now());
+          setShowModal(true);
+        }
       }, 1200);
     }
   };
@@ -94,7 +108,7 @@ const UpdateNotification = () => {
         );
       case 'error':
         return (
-          <button type="button" className="update-pill error" onClick={() => setShowModal(true)}>
+          <button type="button" className="update-pill error" onClick={handleCheckForUpdates}>
             <AlertCircle size={13} /> Update Error
           </button>
         );

@@ -1,0 +1,74 @@
+.driver-tracker {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.driver-tracker h2 {
+  font-family: var(--font-disp);
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  margin: 0;
+  padding: 1rem;
+  border-bottom: 1px solid var(--border);
+  color: var(--text);
+  text-align: center;
+}
+
+.drivers-table {
+  display: flex;
+  flex-direction: column;
+}
+
+.table-header, .table-body {
+  display: grid;
+  grid-template-columns: 60px 1fr 1fr 80px 100px 60px;
+  gap: 8px;
+  padding: 1rem;
+}
+
+.table-header {
+  font-weight: 600;
+  font-size: 0.875rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  background: rgba(230,57,70,0.1);
+  border-bottom: 1px solid var(--border);
+}
+
+.table-row {
+  align-items: center;
+  border-bottom: 1px solid var(--border);
+  transition: background var(--trans);
+}
+
+.table-row:hover {
+  background: rgba(255,255,255,0.03);
+}
+
+.table-row .driver {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.driver-name {
+  font-weight: 600;
+}
+
+.pos, .team, .laps, .time, .points {
+  font-variant-numeric: tabular-nums;
+}
+
+.time {
+  font-family: var(--font-disp);
+  font-weight: 500;
+}
+
+.points {
+  font-weight: 600;
+  color: var(--accent2);
+}

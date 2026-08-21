@@ -1,0 +1,28 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+release/
+dist/
+build/
+temp/
+*.tmp
+
+# Logs
+*.log
+dev.log
+
+# Environment variables
+.env
+.env.*
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Misc
+package-lock.json

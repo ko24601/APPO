@@ -1,10 +1,11 @@
-// Update service for Electron app with electron-updater and IPC communication
+// Robust Update Service for Electron app
 const { autoUpdater } = require('electron-updater');
 const log = require('electron-log');
-const { ipcMain, dialog } = require('electron');
+const { ipcMain } = require('electron');
 
 // Configure logging
 log.transports.file.level = 'info';
+log.transports.console.level = 'warn'; // Avoid verbose console spam
 autoUpdater.logger = log;
 autoUpdater.autoDownload = true;
 autoUpdater.autoInstallOnAppQuit = true;
@@ -19,9 +20,12 @@ let updateStatus = {
 
 function sendStatusToWindow(status, data = {}) {
   updateStatus = { ...updateStatus, status, ...data };
-  log.info('Update status:', status, data);
   if (mainWindowRef && !mainWindowRef.isDestroyed()) {
-    mainWindowRef.webContents.send('update-status-changed', updateStatus);
+    try {
+      mainWindowRef.webContents.send('update-status-changed', updateStatus);
+    } catch (e) {
+      // Window might be closing
+    }
   }
 }
 
@@ -35,12 +39,10 @@ function initUpdateService(mainWindow) {
 
   autoUpdater.on('update-available', (info) => {
     sendStatusToWindow('available', { info, error: null });
-    log.info('Update available:', info);
   });
 
   autoUpdater.on('update-not-available', (info) => {
     sendStatusToWindow('not-available', { info, error: null });
-    log.info('Update not available:', info);
   });
 
   autoUpdater.on('download-progress', (progressObj) => {
@@ -56,12 +58,15 @@ function initUpdateService(mainWindow) {
 
   autoUpdater.on('update-downloaded', (info) => {
     sendStatusToWindow('downloaded', { info });
-    log.info('Update downloaded, ready to install');
   });
 
   autoUpdater.on('error', (err) => {
-    sendStatusToWindow('error', { error: err ? err.message : 'Unknown updater error' });
-    log.error('Error in auto-updater: ', err);
+    // Safe friendly error capture without throwing unhandled exceptions
+    const friendlyMsg = err?.message?.includes('404')
+      ? 'No published update package found on GitHub Releases yet.'
+      : (err ? err.message : 'Update check encountered a network error.');
+    
+    sendStatusToWindow('error', { error: friendlyMsg });
   });
 
   // IPC handlers from renderer
@@ -71,8 +76,11 @@ function initUpdateService(mainWindow) {
       const result = await autoUpdater.checkForUpdates();
       return { success: true, result };
     } catch (err) {
-      sendStatusToWindow('error', { error: err.message });
-      return { success: false, error: err.message };
+      const friendlyMsg = err?.message?.includes('404')
+        ? 'No published update package found on GitHub Releases yet.'
+        : (err ? err.message : 'Updater error');
+      sendStatusToWindow('error', { error: friendlyMsg });
+      return { success: false, error: friendlyMsg };
     }
   });
 
@@ -81,24 +89,31 @@ function initUpdateService(mainWindow) {
   });
 
   ipcMain.handle('quit-and-install-update', () => {
-    log.info('quit-and-install requested from renderer');
-    setImmediate(() => {
-      autoUpdater.quitAndInstall(false, true);
-    });
-    return { success: true };
+    try {
+      setImmediate(() => {
+        autoUpdater.quitAndInstall(false, true);
+      });
+      return { success: true };
+    } catch (e) {
+      return { success: false, error: e.message };
+    }
   });
 
-  // Check immediately on launch in production
+  // Safe background check on launch
   if (process.env.NODE_ENV !== 'development') {
     setTimeout(() => {
-      autoUpdater.checkForUpdates().catch(err => {
-        log.warn('Initial update check error:', err.message);
-      });
-    }, 4000);
+      try {
+        autoUpdater.checkForUpdates().catch(() => {});
+      } catch (e) {}
+    }, 5000);
   }
 }
 
 module.exports = {
   initUpdateService,
-  checkForUpdates: () => autoUpdater.checkForUpdates().catch(err => log.error(err))
+  checkForUpdates: () => {
+    try {
+      return autoUpdater.checkForUpdates().catch(() => {});
+    } catch (e) {}
+  }
 };

@@ -10,15 +10,16 @@ autoUpdater.logger = log;
 autoUpdater.autoDownload = true;
 autoUpdater.autoInstallOnAppQuit = true;
 
-// Configure GitHub provider to use API endpoint instead of website
-// This avoids the 406 error when checking for updates
+// Configure GitHub provider for updates
 autoUpdater.setFeedURL({
   provider: 'github',
   owner: 'ko24601',
   repo: 'APPO',
-  private: false,
-  host: 'api.github.com' // Force use of GitHub API endpoint
+  private: false
 });
+
+// Allow prerelease updates to avoid using the broken website endpoint for tag lookup
+autoUpdater.allowPrerelease = true;
 
 let mainWindowRef = null;
 let updateStatus = {

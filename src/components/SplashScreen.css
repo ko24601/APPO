@@ -1,425 +1,248 @@
-/* High-Octane Revamped F1 SplashScreen Styling */
+/* Spinning F1 Wheel Splash Screen */
 
 .splash-screen {
   position: fixed;
   inset: 0;
   width: 100vw;
   height: 100vh;
-  background: radial-gradient(circle at center, #11141d 0%, #08090c 70%, #030406 100%);
+  background: radial-gradient(circle at center, #0f131c 0%, #08090c 70%, #030406 100%);
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
   z-index: 9999;
+  cursor: pointer;
+  user-select: none;
   overflow: hidden;
-  font-family: 'Inter', sans-serif;
-  color: #ffffff;
-  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity 0.35s ease, transform 0.35s ease;
 }
 
-.splash-screen.launching {
-  animation: launchBurst 0.9s forwards;
+.splash-screen.fading-out {
+  opacity: 0;
+  transform: scale(1.04);
+  pointer-events: none;
 }
 
-@keyframes launchBurst {
-  0% { transform: scale(1); filter: brightness(1); }
-  50% { transform: scale(1.03); filter: brightness(1.4); }
-  100% { opacity: 0; transform: scale(1.08); filter: blur(6px); visibility: hidden; }
-}
-
-.splash-bg-glow {
+.splash-glow-bg {
   position: absolute;
-  width: 650px;
-  height: 650px;
-  background: radial-gradient(circle, rgba(225, 6, 0, 0.18) 0%, rgba(0, 240, 255, 0.05) 50%, transparent 70%);
+  width: 480px;
+  height: 480px;
+  background: radial-gradient(circle, rgba(225, 6, 0, 0.22) 0%, rgba(0, 240, 255, 0.05) 50%, transparent 70%);
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   pointer-events: none;
   filter: blur(40px);
-  animation: pulseGlow 3s ease-in-out infinite alternate;
 }
 
-@keyframes pulseGlow {
-  0% { opacity: 0.6; transform: translate(-50%, -50%) scale(0.95); }
-  100% { opacity: 1; transform: translate(-50%, -50%) scale(1.15); }
-}
-
-.splash-grid-overlay {
-  position: absolute;
-  inset: 0;
-  background-image: 
-    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-  background-size: 32px 32px;
-  pointer-events: none;
-}
-
-/* Top Bar */
-.splash-top-bar {
-  position: absolute;
-  top: 24px;
-  left: 32px;
-  right: 32px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  z-index: 10;
-}
-
-.splash-badge {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-family: 'Share Tech Mono', monospace;
-  font-size: 0.8rem;
-  letter-spacing: 0.12em;
-  color: #00f0ff;
-  background: rgba(0, 240, 255, 0.08);
-  border: 1px solid rgba(0, 240, 255, 0.25);
-  padding: 6px 14px;
-  border-radius: 4px;
-  backdrop-filter: blur(8px);
-}
-
-.icon-pulse {
-  animation: pulse 1.5s infinite;
-}
-
-.splash-actions {
-  display: flex;
-  gap: 12px;
-}
-
-.splash-btn {
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  color: #ffffff;
-  padding: 8px 16px;
-  border-radius: 6px;
-  font-size: 0.8rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  transition: all 0.2s ease;
-  backdrop-filter: blur(8px);
-}
-
-.splash-btn:hover {
-  background: rgba(225, 6, 0, 0.3);
-  border-color: #e10600;
-  box-shadow: 0 0 12px rgba(225, 6, 0, 0.4);
-}
-
-/* Content Container */
 .splash-content {
   position: relative;
   z-index: 5;
-  width: 90%;
-  max-width: 680px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 22px;
-}
-
-/* Logo */
-.splash-logo-container {
-  display: flex;
-  align-items: center;
   gap: 20px;
-  margin-bottom: 4px;
+  text-align: center;
 }
 
-.f1-speed-logo {
-  position: relative;
-  width: 64px;
-  height: 52px;
+/* F1 Badge */
+.f1-badge-logo {
+  width: 54px;
+  height: 42px;
   background: linear-gradient(135deg, #e10600 0%, #b30000 100%);
   clip-path: polygon(15% 0%, 100% 0%, 85% 100%, 0% 100%);
   display: flex;
   justify-content: center;
   align-items: center;
-  box-shadow: 0 0 24px rgba(225, 6, 0, 0.6);
+  box-shadow: 0 0 20px rgba(225, 6, 0, 0.6);
+  margin-bottom: 6px;
 }
 
-.logo-f {
+.f1-badge-logo .logo-f {
   font-family: 'Barlow Condensed', sans-serif;
   font-weight: 900;
   font-style: italic;
-  font-size: 2.2rem;
+  font-size: 1.8rem;
   color: #ffffff;
 }
 
-.logo-1 {
+.f1-badge-logo .logo-1 {
   font-family: 'Barlow Condensed', sans-serif;
   font-weight: 900;
   font-style: italic;
-  font-size: 2.2rem;
+  font-size: 1.8rem;
   color: #000000;
   margin-left: 2px;
 }
 
-.logo-text-group {
-  text-align: left;
-}
-
-.splash-title {
-  font-family: 'Orbitron', sans-serif;
-  font-weight: 900;
-  font-size: 1.85rem;
-  letter-spacing: 0.14em;
-  margin: 0;
-  background: linear-gradient(90deg, #ffffff 0%, #d8d8d8 70%, #ff4b4b 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  text-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
-}
-
-.splash-subtitle {
-  font-family: 'Share Tech Mono', monospace;
-  font-size: 0.75rem;
-  letter-spacing: 0.22em;
-  color: #00f0ff;
-  margin: 4px 0 0 0;
-}
-
-/* 5 Red Lights Gantry */
-.f1-gantry {
-  width: 100%;
-  background: rgba(18, 22, 31, 0.85);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 12px;
-  padding: 18px 24px;
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(16px);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 14px;
-}
-
-.gantry-header {
-  font-family: 'Orbitron', sans-serif;
-  font-size: 0.75rem;
-  letter-spacing: 0.2em;
-  color: #8f9cae;
-}
-
-.gantry-lights-rack {
+/* Spinning Wheel Stage */
+.wheel-stage {
+  position: relative;
+  width: 170px;
+  height: 170px;
   display: flex;
   justify-content: center;
-  gap: 20px;
-  width: 100%;
-}
-
-.gantry-light-unit {
-  display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 8px;
 }
 
-.light-housing {
-  background: #0a0d14;
-  border: 2px solid #202736;
-  border-radius: 28px;
-  padding: 8px 6px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.9);
-}
-
-.red-light {
-  width: 22px;
-  height: 22px;
+.wheel-shadow {
+  position: absolute;
+  bottom: -15px;
+  width: 140px;
+  height: 20px;
+  background: radial-gradient(ellipse, rgba(0, 0, 0, 0.7) 0%, transparent 70%);
   border-radius: 50%;
-  background: #2a0b0b;
-  border: 1px solid rgba(255, 0, 0, 0.15);
-  transition: all 0.08s ease-in-out;
 }
 
-.red-light.lit {
-  background: radial-gradient(circle, #ff5555 10%, #e10600 60%, #990000 100%);
-  box-shadow: 0 0 18px #ff0000, 0 0 35px rgba(255, 0, 0, 0.8);
-  border-color: #ff8888;
+.spinning-wheel {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  animation: wheelSpin 0.75s linear infinite;
+  box-shadow: 0 0 25px rgba(225, 6, 0, 0.35);
 }
 
-.light-number {
-  font-family: 'Share Tech Mono', monospace;
-  font-size: 0.7rem;
-  color: #5d6b82;
+@keyframes wheelSpin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
-.gantry-status-message {
-  font-family: 'Orbitron', sans-serif;
-  font-size: 0.9rem;
-  letter-spacing: 0.08em;
-  font-weight: 700;
-  min-height: 24px;
+/* Tire Rubber */
+.tire-rubber {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle, #242830 0%, #151821 55%, #0d0f14 100%);
+  border: 4px solid #11141a;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.9);
 }
 
-.standby-banner {
+/* Red Pirelli Soft Compound Ring */
+.tire-compound-stripe {
+  position: absolute;
+  inset: 12px;
+  border-radius: 50%;
+  border: 3px solid #e10600;
+  box-shadow: 0 0 8px rgba(225, 6, 0, 0.7), inset 0 0 6px rgba(225, 6, 0, 0.5);
+  pointer-events: none;
+}
+
+.tire-text {
+  position: absolute;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 8px;
+  font-weight: 900;
+  letter-spacing: 0.15em;
   color: #ffd700;
-  animation: blink 1s infinite alternate;
+  text-shadow: 0 0 4px rgba(255, 215, 0, 0.6);
 }
 
-.lights-out-banner {
-  color: #00f0ff;
-  text-shadow: 0 0 12px #00f0ff;
-  animation: glowPulse 0.4s infinite alternate;
+.tire-text.top { top: 4px; }
+.tire-text.bottom { bottom: 4px; }
+.tire-text.left { left: 4px; transform: rotate(-90deg); }
+.tire-text.right { right: 4px; transform: rotate(90deg); }
+
+/* Wheel Rim & Spokes */
+.wheel-rim {
+  position: absolute;
+  inset: 26px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #252c38 0%, #10141d 75%, #0a0d13 100%);
+  border: 2px solid #333d4e;
+  box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.9), 0 0 10px rgba(0, 0, 0, 0.8);
 }
 
-/* Tachometer */
-.splash-tachometer {
+.rim-outer-ring {
+  position: absolute;
+  inset: 6px;
+  border-radius: 50%;
+  border: 1px dashed rgba(255, 255, 255, 0.15);
+}
+
+.spoke-pair {
+  position: absolute;
+  top: 50%;
+  left: 50%;
   width: 100%;
-  background: rgba(18, 22, 31, 0.7);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 10px;
-  padding: 14px 20px;
-  backdrop-filter: blur(12px);
+  height: 2px;
+  transform-origin: center center;
 }
 
-.tacho-header {
+.spoke-blade {
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(90deg, #566478 0%, #8ca0b8 60%, #303a48 100%);
+  border-radius: 2px;
+  box-shadow: 0 0 3px rgba(255, 255, 255, 0.3);
+}
+
+/* Center Nut */
+.wheel-center-nut {
+  position: absolute;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #e10600 0%, #880000 100%);
+  border: 2px solid #ffffff;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  margin-bottom: 8px;
+  justify-content: center;
+  box-shadow: 0 0 8px rgba(225, 6, 0, 0.8);
 }
 
-.tacho-label {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-family: 'Rajdhani', sans-serif;
-  font-weight: 600;
-  font-size: 0.85rem;
-  letter-spacing: 0.1em;
-  color: #8f9cae;
+.nut-core {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #000000;
+  border: 1.5px solid #ffd700;
 }
 
-.tacho-digital {
+/* Titles */
+.splash-title {
+  margin: 0;
   font-family: 'Orbitron', sans-serif;
-  font-weight: 800;
-  font-size: 1.15rem;
+  font-weight: 900;
+  font-size: 1.5rem;
+  letter-spacing: 0.14em;
   color: #ffffff;
 }
 
-.tacho-digital small {
-  font-size: 0.65rem;
-  color: #e10600;
-}
-
-.tacho-bar-track {
-  position: relative;
-  width: 100%;
-  height: 12px;
-  background: #090c12;
-  border-radius: 6px;
-  overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-.tacho-bar-fill {
-  height: 100%;
-  background: linear-gradient(90deg, #00f0ff 0%, #ffd700 60%, #e10600 90%, #9b51e0 100%);
-  border-radius: 6px;
-  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
-}
-
-.tacho-shift-lights {
-  position: absolute;
-  right: 8px;
-  top: 50%;
-  transform: translateY(-50%);
-  display: flex;
-  gap: 4px;
-}
-
-.sl-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.2);
-}
-
-.sl-dot.on.green { background: #00ff66; box-shadow: 0 0 6px #00ff66; }
-.sl-dot.on.red { background: #ff0033; box-shadow: 0 0 6px #ff0033; }
-.sl-dot.on.blue { background: #00d4ff; box-shadow: 0 0 6px #00d4ff; }
-
-/* Holographic Boot Terminal */
-.splash-terminal {
-  width: 100%;
-  background: rgba(8, 11, 16, 0.9);
-  border: 1px solid rgba(0, 240, 255, 0.2);
-  border-radius: 8px;
-  overflow: hidden;
+.splash-subtitle {
+  margin: 6px 0 0 0;
   font-family: 'Share Tech Mono', monospace;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.7);
-}
-
-.terminal-bar {
-  background: rgba(0, 240, 255, 0.08);
-  border-bottom: 1px solid rgba(0, 240, 255, 0.15);
-  padding: 6px 12px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
   font-size: 0.75rem;
+  letter-spacing: 0.18em;
   color: #00f0ff;
-  letter-spacing: 0.1em;
 }
 
-.terminal-dots {
-  margin-left: auto;
-  display: flex;
-  gap: 4px;
-}
-
-.terminal-dots span {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.2);
-}
-
-.terminal-body {
-  padding: 10px 14px;
-  height: 90px;
-  overflow-y: hidden;
-  font-size: 0.75rem;
-  line-height: 1.5;
-  color: #92a4bc;
-}
-
-.terminal-line {
-  white-space: nowrap;
+/* Progress bar */
+.loading-progress-bar {
+  width: 220px;
+  height: 4px;
+  background: #11141d;
+  border-radius: 2px;
   overflow: hidden;
-  text-overflow: ellipsis;
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.terminal-line .prompt {
-  color: #00f0ff;
-  margin-right: 6px;
+.loading-progress-bar .progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #e10600, #00f0ff);
+  transition: width 0.2s ease;
+  box-shadow: 0 0 8px #00f0ff;
 }
 
-.terminal-cursor {
-  display: inline-block;
-  color: #00f0ff;
-  animation: blink 0.7s infinite alternate;
-}
-
-@keyframes blink {
-  0% { opacity: 0.2; }
-  100% { opacity: 1; }
-}
-
-@keyframes glowPulse {
-  0% { opacity: 0.8; transform: scale(0.99); }
-  100% { opacity: 1; transform: scale(1.01); }
+.skip-hint {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  color: #5d6b82;
+  margin-top: 4px;
 }

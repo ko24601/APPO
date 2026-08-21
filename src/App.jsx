@@ -44,6 +44,14 @@ function App() {
 
   const simulatorRef = useRef(null);
 
+  // Failsafe timer: guarantees the loading screen closes
+  useEffect(() => {
+    const safeTimer = setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
+    return () => clearTimeout(safeTimer);
+  }, []);
+
   // Initialize Simulation Engine
   useEffect(() => {
     simulatorRef.current = new RaceSimulator(FALLBACK_DRIVERS, selectedCircuit);
